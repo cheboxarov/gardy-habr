@@ -21,4 +21,4 @@ class User(Base):
     full_name = Column(String)
     is_admin = Column(Boolean, default=False)
     orders = relationship("Order", back_populates="user")
-    has_promo = Column(Boolean, default=False)
+    promo = Column(String, default=None)

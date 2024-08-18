@@ -27,11 +27,10 @@ services:
       - POSTGRES_HOST_AUTH_METHOD=trust
   django:
     build: ./admin
-    working_dir: /admin
-    command: sh -c "gunicorn --bind 0.0.0.0:8000 app.wsgi:application"
+    command: sh -c "python manage.py collectstatic; python manage.py migrate; python manage.py runserver 0.0.0.0:8000"
     volumes:
       - ./admin:/admin
-      - static_data:/project/static
+      - static_data:/admin/static
     expose:
       - 8000
     environment:
@@ -43,7 +42,6 @@ services:
       - django
     ports:
       - "80:80"
-      - "443:443"
     volumes:
       - static_data:/var/www/html/static/
       - ./nginx-conf.d:/etc/nginx/conf.d

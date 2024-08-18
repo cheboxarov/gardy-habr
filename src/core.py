@@ -131,5 +131,8 @@ if __name__ == "__main__":
 
     timer_thread = threading.Thread(target=check_timers, args=(bot,))
     timer_thread.start()
-
-    bot.polling(none_stop=True, logger_level=logging.DEBUG)
+    while True:
+        try:
+            bot.polling(none_stop=True, logger_level=logging.DEBUG)
+        except Exception as error:
+            print(error)
