@@ -6,7 +6,10 @@ from telebot.types import Message
 
 def message_for_all_handler(bot: TeleBot, message: Message):
     users = session.query(User).all()
-    message_text = message.html_text
+    if not message.photo:
+        message_text = message.html_text
+    else:
+        message_text = message.html_caption
     message_text = message_text.replace("all ", "")
     user_id = message.from_user.id
     user = session.query(User).filter_by(user_id=user_id).first()
