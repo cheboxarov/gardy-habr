@@ -28,9 +28,10 @@ def handle_menu(bot: TeleBot, call: types.CallbackQuery):
         markup = types.InlineKeyboardMarkup()
         markup.add(types.InlineKeyboardButton("Основное портфолио", url="https://t.me/+4Ty_2eBSsXg5MDUy"))
         for category in categories:
-            markup.add(
-                types.InlineKeyboardButton(category.name, url=category.portfolio)
-            )
+            if category.portfolio is not None:
+                markup.add(
+                    types.InlineKeyboardButton(category.name, url=category.portfolio)
+                )
         markup.add(types.InlineKeyboardButton("Назад", callback_data="welcome"))
         bot.edit_message_caption(
             chat_id=call.from_user.id,
