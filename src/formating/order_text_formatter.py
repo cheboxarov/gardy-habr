@@ -3,6 +3,9 @@ import settings
 
 
 def order_text(user: User, order: Order, order_status: str = None, username: str = None) -> str:
+    category_name = order.category.name
+    if order.category.parent is not None:
+        category_name = f"{order.category.parent.name} -> {category_name}"
     if order_status is None:
         if order.status == "Working":
             order_status = "В работе"
@@ -22,7 +25,7 @@ def order_text(user: User, order: Order, order_status: str = None, username: str
         order_status_text = ""
     text = f"""🧾 *Информация о заказе*
 ➖➖➖➖➖➖➖➖➖➖➖
-📋 *Категория:* {order.category.name}
+📋 *Категория:* {category_name}
 🌏 *Описание:* {order.description}
 ⏱️ *Срок выполнения:* {order.deadline}
 ➖➖➖➖➖➖➖➖➖➖➖

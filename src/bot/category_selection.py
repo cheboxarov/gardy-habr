@@ -177,7 +177,8 @@ def get_order_price(bot: TeleBot, message, context):
     )
 
 
-def handle_category_selection(bot, call):
+def handle_category_selection(bot: TeleBot, call):
+    bot.delete_message(chat_id=call.from_user.id, message_id=call.message.id)
     category_id = int(call.data.split("_")[-1])
     category = session.query(Category).filter(Category.id == category_id).first()
 
