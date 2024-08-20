@@ -26,6 +26,7 @@ def handle_menu(bot: TeleBot, call: types.CallbackQuery):
     elif call.data == "portfolio":
         categories = session.query(Category).filter(Category.parent_id.is_(None)).all()
         markup = types.InlineKeyboardMarkup()
+        markup.add(types.InlineKeyboardButton("Основное портфолио", url="https://t.me/+4Ty_2eBSsXg5MDUy"))
         for category in categories:
             markup.add(
                 types.InlineKeyboardButton(category.name, url=category.portfolio)
