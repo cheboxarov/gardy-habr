@@ -16,7 +16,7 @@ class Order(Base):
     __tablename__ = "orders"
 
     id = Column(Integer, primary_key=True)
-    user_id = Column(BigInteger, ForeignKey("users.user_id"))
+    user_id = Column(BigInteger, ForeignKey("users.user_id", ondelete='CASCADE'))
     category_id = Column(
         BigInteger, ForeignKey("categories.id", ondelete='CASCADE')
     )  # Внешний ключ на таблицу categories

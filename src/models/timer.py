@@ -13,7 +13,7 @@ from datetime import datetime
 class Timer(Base):
     __tablename__ = "timers"
     id = Column(Integer, primary_key=True)
-    order_id = Column(Integer, ForeignKey("orders.id"))
+    order_id = Column(Integer, ForeignKey("orders.id", ondelete="CASCADE"), nullable=False)
     start_time = Column(DateTime, default=datetime.utcnow)
     end_time = Column(DateTime)
     discount_applied = Column(Boolean, default=False)
