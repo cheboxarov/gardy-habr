@@ -120,7 +120,7 @@ def admin_manage_order(call: CallbackQuery):
     admin_manage_order_handler(bot, call)
     bot.answer_callback_query(call.id, "")
 
-@bot.message_handler(content_types=["text"], func=lambda message: message.text.startswith("all "))
+@bot.message_handler(content_types=["text", "photo"], func=lambda message: message.text.startswith("all "))
 def message_for_all(message):
     message_for_all_handler(bot, message)
 
