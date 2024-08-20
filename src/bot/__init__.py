@@ -16,4 +16,4 @@ from .category_selection import (
 from .menu import handle_menu
 from .create_order import create_order_handle
 from .finish_order import finish_order_handler
-from message_for_all import message_for_all_handler
+from .message_for_all import message_for_all_handler

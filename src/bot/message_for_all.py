@@ -2,7 +2,7 @@ from db import session
 from models import User, Order
 from telebot import TeleBot, types
 from telebot.types import Message
-from formating import order_text
+
 
 def message_for_all_handler(bot: TeleBot, message: Message):
     users = session.query(User).all()
