@@ -120,7 +120,14 @@ def admin_manage_order(call: CallbackQuery):
     admin_manage_order_handler(bot, call)
     bot.answer_callback_query(call.id, "")
 
-@bot.message_handler(content_types=["text", "photo"], func=lambda message: message.text.startswith("all "))
+def check_all(message):
+    if message.text is not None:
+        return message.text.startswith("all ")
+    if message.caption is not None:
+        return message.caption.startswith("all ")
+    return False
+
+@bot.message_handler(content_types=["text", "photo"], func=check_all)
 def message_for_all(message):
     message_for_all_handler(bot, message)
 
