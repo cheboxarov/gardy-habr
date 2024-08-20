@@ -18,8 +18,8 @@ class Category(models.Model):
 
 
 class Orders(models.Model):
-    user = models.ForeignKey('Users', models.DO_NOTHING, to_field='user_id', blank=True, null=True)
-    category = models.ForeignKey(Category, models.DO_NOTHING, blank=True, null=True)
+    user = models.ForeignKey('Users', on_delete=models.CASCADE, to_field='user_id', blank=True, null=True)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, blank=True, null=True)
     description = models.CharField(blank=True, null=True)
     deadline = models.CharField(blank=True, null=True)
     deadline_hours = models.IntegerField(blank=True, null=True)
@@ -36,7 +36,7 @@ class Orders(models.Model):
 
 
 class Payments(models.Model):
-    order = models.ForeignKey(Orders, models.DO_NOTHING, blank=True, null=True)
+    order = models.ForeignKey(Orders, on_delete=models.CASCADE, blank=True, null=True)
     amount = models.FloatField(blank=True, null=True)
     is_paid = models.BooleanField(blank=True, null=True)
 
@@ -47,7 +47,7 @@ class Payments(models.Model):
 
 class Prices(models.Model):
     price = models.CharField()
-    category = models.ForeignKey(Category, models.DO_NOTHING, db_column='category')
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, db_column='category')
 
     class Meta:
         managed = False
@@ -58,7 +58,7 @@ class Prices(models.Model):
 
 
 class Timers(models.Model):
-    order = models.ForeignKey(Orders, models.DO_NOTHING, blank=True, null=True)
+    order = models.ForeignKey(Orders, on_delete=models.CASCADE, blank=True, null=True)
     start_time = models.DateTimeField(blank=True, null=True)
     end_time = models.DateTimeField(blank=True, null=True)
     discount_applied = models.BooleanField(blank=True, null=True)
