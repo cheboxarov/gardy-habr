@@ -41,7 +41,7 @@ def admin_new_orders(bot, message):
                 )
                 bot.send_message(
                     message.chat.id,
-                    order_text(user, order),
+                    order_text(user, order, username=user.username),
                     reply_markup=markup,
                 )
         else:
@@ -71,7 +71,7 @@ def admin_accepted_orders(bot, message):
                 )
                 bot.send_message(
                     message.chat.id,
-                    order_text(user, order),
+                    order_text(user, order, username=user.username),
                     reply_markup=markup,
                 )
         else:
@@ -101,7 +101,7 @@ def orders_in_work(bot, message):
                 )
                 bot.send_message(
                     message.chat.id,
-                    order_text(user, order),
+                    order_text(user, order, username=user.username),
                     reply_markup=markup,
                 )
         else:
@@ -121,7 +121,7 @@ def finished_orders(bot, message):
                 markup = types.InlineKeyboardMarkup()
                 bot.send_message(
                     message.chat.id,
-                    order_text(user, order),
+                    order_text(user, order, username=user.username),
                     reply_markup=markup,
                 )
         else:

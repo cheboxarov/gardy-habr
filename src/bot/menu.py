@@ -1,5 +1,5 @@
 from telebot import types, TeleBot
-
+from .utils.menu_utils import get_pricing_text
 from db import session
 from models import Category
 
@@ -11,8 +11,10 @@ def handle_menu(bot: TeleBot, call: types.CallbackQuery):
         bot.edit_message_caption(
             chat_id=call.from_user.id,
             message_id=call.message.id,
-            caption="Для поддержки свяжитесь с нами: @gardyy00",
+            caption="""
+            🫱🏽‍🫲🏼*По всем вопросам вы можете обратиться напрямую ко мне: @Gardy82*""",
             reply_markup=markup,
+            parse_mode="Markdown"
         )
     elif call.data == "rules":
         bot.edit_message_caption(
@@ -22,7 +24,7 @@ def handle_menu(bot: TeleBot, call: types.CallbackQuery):
             reply_markup=markup,
         )
     elif call.data == "portfolio":
-        categories = session.query(Category).all()
+        categories = session.query(Category).filter(Category.parent_id.is_(None)).all()
         markup = types.InlineKeyboardMarkup()
         for category in categories:
             markup.add(
@@ -45,6 +47,7 @@ def handle_menu(bot: TeleBot, call: types.CallbackQuery):
         bot.edit_message_caption(
             chat_id=call.from_user.id,
             message_id=call.message.id,
-            caption="тут прайсы",
+            caption=get_pricing_text(),
             reply_markup=markup,
+            parse_mode="Markdown"
         )

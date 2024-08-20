@@ -1,14 +1,17 @@
 from django.db import models
 
 
-class Categories(models.Model):
-    name = models.CharField(blank=True, null=True)
-    description = models.CharField(blank=True, null=True)
-    portfolio = models.CharField(blank=True, null=True)
+class Category(models.Model):
+    name = models.CharField(max_length=255, blank=True, null=True)
+    description = models.CharField(max_length=255, blank=True, null=True)
+    portfolio = models.CharField(max_length=255, blank=True, null=True)
+    parent = models.ForeignKey(
+        'self', on_delete=models.CASCADE, related_name='children', blank=True, null=True
+    )
 
     class Meta:
-        managed = False
         db_table = 'categories'
+        managed = False
 
     def __str__(self):
         return self.name
@@ -16,7 +19,7 @@ class Categories(models.Model):
 
 class Orders(models.Model):
     user = models.ForeignKey('Users', models.DO_NOTHING, to_field='user_id', blank=True, null=True)
-    category = models.ForeignKey(Categories, models.DO_NOTHING, blank=True, null=True)
+    category = models.ForeignKey(Category, models.DO_NOTHING, blank=True, null=True)
     description = models.CharField(blank=True, null=True)
     deadline = models.CharField(blank=True, null=True)
     deadline_hours = models.IntegerField(blank=True, null=True)
@@ -44,7 +47,7 @@ class Payments(models.Model):
 
 class Prices(models.Model):
     price = models.CharField()
-    category = models.ForeignKey(Categories, models.DO_NOTHING, db_column='category')
+    category = models.ForeignKey(Category, models.DO_NOTHING, db_column='category')
 
     class Meta:
         managed = False

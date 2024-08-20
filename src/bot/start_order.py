@@ -8,12 +8,13 @@ def start_order_handler(bot, call):
     order_id = int(call.data.split("_")[-1])
     order = session.query(Order).filter_by(id=order_id).first()
     user = session.query(User).filter_by(user_id=call.from_user.id).first()
+    bot.delete_message(call.from_user.id, call.message.id)
     if order:
         order.status = "Working"
         session.commit()
         bot.send_message(
             order.user_id,
-            f"{order_text(user, order)} \n\n*Взят в работу.*",
+            order_text(user, order, order_status="_Ваш заказ был взят в работу._"),
             parse_mode="Markdown",
         )
 

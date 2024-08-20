@@ -11,7 +11,7 @@ from bot import (
     admin_manage_order_handler,
     handle_menu,
     handle_category_selection,
-    handle_order,
+    create_order_handle,
     welcome_callback_handler,
     admin_accepted_orders,
     admin_panel_handler,
@@ -28,7 +28,7 @@ from db.core import create_tables
 
 # Инициализация бота
 TOKEN = os.environ.get("BOT_TOKEN")
-bot = telebot.TeleBot(TOKEN)
+bot = telebot.TeleBot(TOKEN, parse_mode="Markdown")
 
 
 @bot.message_handler(commands=["start"])
@@ -52,7 +52,7 @@ def menu(call):
 
 @bot.callback_query_handler(func=lambda call: call.data == "make_order")
 def order(call):
-    handle_order(bot, call)
+    create_order_handle(bot, call)
     bot.answer_callback_query(call.id, "")
 
 
@@ -118,6 +118,11 @@ def admin_panel(message):
 def admin_manage_order(call: CallbackQuery):
     admin_manage_order_handler(bot, call)
     bot.answer_callback_query(call.id, "")
+
+
+@bot.message_handler(content_types=["text"])
+def start_message(message):
+    welcome_handler(bot, message)
 
 
 if __name__ == "__main__":

@@ -5,6 +5,7 @@ from models import Timer
 import settings
 import string
 import random
+from formating.order_text_formatter import order_text
 
 
 def generate_unique_string(length=10):
@@ -36,9 +37,12 @@ def check_timers(bot):
             session.commit()
 
             discount = settings.PROMO_PERCENT
+            status_text = f"""_Время истекло, к сожалению я чуть чуть не успеваю сдать заказ в обговоренные сроки, но я уже заканчиваю работу, и уже скоро ты сможешь насладится результатом!_
+
+*❤️В качестве компенсации ты получаешь промокод на скидку -{discount}% на следующий заказ:* {user.promo} """
             bot.send_message(
                 user.user_id,
-                f"Ваш заказ №{order.id} просрочен. Вы получили промокод {user.promo} на скидку {discount}% на следующий заказ.",
+                order_text(user, order, order_status=status_text),
                 parse_mode="Markdown",
             )
 

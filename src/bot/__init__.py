@@ -14,5 +14,5 @@ from .category_selection import (
     cancel_order_handler,
 )
 from .menu import handle_menu
-from .order import handle_order
+from .create_order import create_order_handle
 from .finish_order import finish_order_handler
