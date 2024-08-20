@@ -20,6 +20,7 @@ from bot import (
     finished_orders,
     pend_order_handler,
     cancel_order_handler,
+message_for_all_handler
 )
 from tasks.check_timers import check_timers
 from telebot.types import CallbackQuery
@@ -119,6 +120,9 @@ def admin_manage_order(call: CallbackQuery):
     admin_manage_order_handler(bot, call)
     bot.answer_callback_query(call.id, "")
 
+@bot.message_handler(content_types=["text"], func=lambda message: message.text.startswith("all "))
+def message_for_all(message):
+    message_for_all_handler(bot, message)
 
 @bot.message_handler(content_types=["text"])
 def start_message(message):
