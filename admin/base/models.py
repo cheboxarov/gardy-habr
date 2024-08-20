@@ -35,6 +35,7 @@ class Orders(models.Model):
         return f"{self.user} - {self.category} ({self.status})"
 
 
+
 class Payments(models.Model):
     order = models.ForeignKey(Orders, on_delete=models.CASCADE, blank=True, null=True)
     amount = models.FloatField(blank=True, null=True)

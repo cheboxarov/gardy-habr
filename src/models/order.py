@@ -18,7 +18,7 @@ class Order(Base):
     id = Column(Integer, primary_key=True)
     user_id = Column(BigInteger, ForeignKey("users.user_id"))
     category_id = Column(
-        BigInteger, ForeignKey("categories.id")
+        BigInteger, ForeignKey("categories.id", ondelete='CASCADE')
     )  # Внешний ключ на таблицу categories
     description = Column(String)
     deadline = Column(String)
@@ -30,3 +30,4 @@ class Order(Base):
     user = relationship("User", back_populates="orders")
     category = relationship("Category")  # Убедитесь, что Category определена правильно
     payment = relationship("Payment", back_populates="order", uselist=False)
+
