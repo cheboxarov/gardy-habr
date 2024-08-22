@@ -9,9 +9,10 @@ services:
     command: sh -c "python core.py"
     depends_on:
       - db
+    env_file:
+      - .env
     environment:
       - DATABASE_URL=postgresql://bot:bot-QWErty!2@db:5432/bot
-      - BOT_TOKEN=7322330860:AAHM9V9gDzmcUe0fZcLZvcWIFqXsYtsLmPA
     volumes:
       - ./src:/src
   db:
