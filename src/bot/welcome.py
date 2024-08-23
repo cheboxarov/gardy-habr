@@ -47,7 +47,7 @@ def send_welcome_message(bot, user_id: int, user_full_name: str, message_id: int
     markup = types.InlineKeyboardMarkup()
     markup.add(
         types.InlineKeyboardButton("📱Контакт для связи", callback_data="support"),
-        types.InlineKeyboardButton("📜 Правила", callback_data="rules"),
+        types.InlineKeyboardButton("✅ Отзывы", url="https://t.me/ajakajal"),
     )
     markup.add(
         types.InlineKeyboardButton("🎨 Портфолио", callback_data="portfolio"),
